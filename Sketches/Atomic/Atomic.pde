@@ -5,12 +5,8 @@
 // Don't use rotate()
 // Use vectors and trigonometry
 
-float x1 = 350;
-float x2 = 200;
-float x3 = 200;
-float y1 = 200;
-float y2 = 200;
-float y3 = 200;
+float x1, x2, x3;
+float y1, y2, y3;
 
 void setup(){
   size(400, 400);
@@ -21,28 +17,45 @@ void draw(){
   
   ///////////////// START YOUR CODE HERE:
   
-  // Move Red Electron
-  if(x1 > 200) x1 -= 3;
-  if(y1 < 250) y1 += 2;
-  
-  // Draw Red Electron
   noStroke();
-  fill(255,100,100);  
-  ellipse(x1, y1, 30, 30);
+  fill(255);
   
-  // Draw Green Electorn
-  noStroke();
-  fill(100,255,100);  
-  ellipse(x2, y2, 30, 30);
-  
-  // Draw Blue Electron
-  noStroke();
-  fill(100,100,255);  
-  ellipse(x3, y3, 30, 30);
+  PVector red = FindOvalPos(0, 0);
+  PVector green = FindOvalPos(60, 0);
+  PVector blue = FindOvalPos(-60, 0);
+    
+  ellipse(red.x, red.y, 20, 20);
+  ellipse(green.x, green.y, 20, 20);
+  ellipse(blue.x, blue.y, 20, 20);
   
   ///////////////// END YOUR CODE HERE
   
 }
+
+PVector FindOvalPos(float rotateAmount, float timeOffset)
+{
+  float time = millis()/1000.0;
+  
+  // Find path on oval
+  float x = cos(time);
+  float y = sin(time);
+  
+  // Convert coorinates to polar
+  float angle = atan2(y, x);
+  float mag = sqrt(x*x + y*y);
+  
+  // rotate vector
+  angle -= radians(60);
+  
+  // revert back to cartestian
+  x = mag * cos(angle);
+  y = mag * sin(angle);
+  
+  // translate to center of screen
+  x += width/2;
+  y += height/2;  
+}
+
 void drawBackground(){
   background(0);
   noStroke();

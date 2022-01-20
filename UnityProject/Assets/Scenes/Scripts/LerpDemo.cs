@@ -7,7 +7,7 @@ public class LerpDemo : MonoBehaviour
     public Transform pointA;
     public Transform pointB;
 
-    [Range(0, 1)] // makes the percent a slider in the inspector
+    //[Range(0, 1)] // makes the percent a slider in the inspector
     public float percent = 0;
 
     void DoInterpolation()
